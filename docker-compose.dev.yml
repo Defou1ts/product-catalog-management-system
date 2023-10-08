@@ -1,9 +1,55 @@
 version: '3.0'
 
 services:
+    gateway:
+        container_name: gateway-dev
+        env_file:
+            - .env.root.dev
+            - ./apps/gateway/.dev.env
+        build:
+            context: .
+            dockerfile: ./apps/gateway/Dockerfile
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./apps/gateway
+                  target: /app/apps/gateway
+                  ignore:
+                      - node_modules/
+                - action: rebuild
+                  path: package.json
+        ports:
+            - '${GATEWAY_PORT}:${GATEWAY_PORT}'
+        depends_on:
+            - postgres
+        restart: always
+    products:
+        container_name: products-dev
+        env_file:
+            - .env.root.dev
+            - ./apps/products/.dev.env
+        build:
+            context: .
+            dockerfile: ./apps/products/Dockerfile
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./apps/products
+                  target: /app/apps/products
+                  ignore:
+                      - node_modules/
+                - action: rebuild
+                  path: package.json
+        ports:
+            - '${PRODUCTS_PORT}:${PRODUCTS_PORT}'
+        depends_on:
+            - postgres
+        restart: always
     postgres:
         hostname: '${POSTGRES_HOST}'
-        container_name: postgres
+        container_name: postgres-dev
         image: postgres:14
         env_file:
             - .env.root.dev
