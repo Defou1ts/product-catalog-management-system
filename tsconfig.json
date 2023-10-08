@@ -17,6 +17,15 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "paths": {
+      "@config/config": [
+        "libs/config/src"
+      ],
+      "@config/config/*": [
+        "libs/config/src/*"
+      ]
+    }
   }
 }
