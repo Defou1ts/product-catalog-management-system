@@ -1,0 +1,19 @@
+version: '3.0'
+
+services:
+    postgres:
+        hostname: '${POSTGRES_HOST}'
+        container_name: postgres
+        image: postgres:14
+        env_file:
+            - .env.root
+        environment:
+            - PG_DATA=/var/lib/postgresql/data
+        ports:
+            - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        restart: always
+
+volumes:
+    pgdata:

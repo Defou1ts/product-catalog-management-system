@@ -1,0 +1,41 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": ["standard-with-typescript", "prettier"],
+	"overrides": [],
+	"parserOptions": {
+		"project": ["./tsconfig.json"],
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": ["@typescript-eslint", "simple-import-sort"],
+	"rules": {
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/strict-boolean-expressions": "off",
+		"@typescript-eslint/prefer-nullish-coalescing": "off",
+
+		"import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+		"import/order": [
+			"error",
+			{
+				"pathGroups": [
+					{
+						"pattern": "react",
+						"group": "external",
+						"position": "before"
+					},
+					{
+						"pattern": "@*",
+						"group": "external",
+						"position": "after"
+					}
+				],
+				"pathGroupsExcludedImportTypes": ["react"],
+				"newlines-between": "always",
+				"groups": ["external", "builtin", "index", "sibling", "parent", "internal", "object", "type"]
+			}
+		]
+	}
+}
