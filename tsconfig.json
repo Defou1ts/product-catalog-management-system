@@ -25,6 +25,12 @@
       ],
       "@config/config/*": [
         "libs/config/src/*"
+      ],
+      "@entities/entities": [
+        "libs/entities/src"
+      ],
+      "@entities/entities/*": [
+        "libs/entities/src/*"
       ]
     }
   }

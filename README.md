@@ -1,73 +1,47 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Описание
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Необходимо разработать систему для управления каталогом продуктов, которая будет состоять из нескольких микросервисов с использованием Nest.js и GraphQL. Каждый микросервис будет отвечать за определенные функциональности.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Используемые технологии
 
-## Description
+- Nest.js для разработки микросервисов.
+- GraphQL в качестве языка запросов и мутаций для взаимодействия между микросервисами и клиентским приложением.
+- База данных PostgreSQL.
+- TypeORM - библиотека, предназначенная для работы с базами данных через объектно-реляционное отображение.
+- Логирование событий с использованием библиотеки Winston.
+- Обработки платежей с использованием PayPal.
+- Docker для контейнеризации.
+- Jest для модульного тестирования.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Требования
 
-## Installation
+1. Разделение системы на следующие микросервисы:
+   - Каталог продуктов отвечает за управление продуктами, их создание, просмотр, обновление и удаление.
+   - Корзина покупок отвечает за управление корзиной покупок пользователей.
+   - Заказы отвечают за управление заказами пользователей.
+   - Использовать Graphql Federation для объединения микросервисов под один gateway
+2. Cхема GraphQL для каждого микросервиса с соответствующими типами данных, запросами и мутациями.
+   - Один из сервисов написать на code first approach,
+   - Один из сервисов написать на schema first approach
+3. Авторизация и аутентификация
+   - JSON Web Tokens (JWT) и механизма сессий.
+   - Помимо верификации токена, выполнить валидацию токена
+   - Настроить RBAC (role based access control) и/или PBAC (permission based access control)
+4. Механизм кэширования запросов и данных для повышения производительности.
 
-```bash
-$ yarn install
-```
+## Дополнительно
 
-## Running the app
+1. Для typeorm настроить миграции схем для продакшн сборки (для разработки можно использовать synchronize: true, чтобы не терять время)
+2. Настроить микросервисную архитектуру с использованием kafka и паттерна cqrs
+   - Kafka можно запустить локально с использованием docker и -cker-compose
+   - Настроить базу данных redis для одного из микросервисов
 
-```bash
-# development
-$ yarn run start
+## Так же проект предполагает
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- Качество и чистоту кода микросервисов.
+- Эффективность использования микросервисной архитектуры и GraphQL.
+- Соответствие требованиям и функциональности, указанным в задании.
+- Корректность обработки ошибок и возврата соответствующих статусов.
+- Качество и полнота тестового покрытия микросервисов.
+- Применение правил валидации данных и обработки ввода пользователя.
+- Качество логирования.
