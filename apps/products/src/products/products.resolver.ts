@@ -14,7 +14,7 @@ export class ProductsResolver {
 		return await this.productsService.getAll();
 	}
 
-	@Query(() => Number)
+	@Query(() => Product)
 	async getProductById(@Args('id') id: number): Promise<Product> {
 		return await this.productsService.getById(id);
 	}
@@ -26,7 +26,7 @@ export class ProductsResolver {
 
 	@Mutation(() => Product)
 	async updateProduct(@Args('updateProduct') dto: UpdateProductDto): Promise<Product> {
-		return await this.productsService.updateById(dto);
+		return await this.productsService.update(dto);
 	}
 
 	@Mutation(() => Number)

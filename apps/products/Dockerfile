@@ -21,6 +21,6 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn nest build meetups
+RUN yarn nest build products
 
 CMD ["node", "dist/apps/products/main"]

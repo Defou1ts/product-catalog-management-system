@@ -1,8 +1,12 @@
+import { Injectable } from '@nestjs/common';
+
+import { ProductsRepository } from './products.repository';
+
 import type { CreateProductDto } from './dto/create-product.dto';
 import type { UpdateProductDto } from './dto/update-product.dto';
 import type { Product } from '@entities/entities';
-import type { ProductsRepository } from './products.repository';
 
+@Injectable()
 export class ProductsService {
 	constructor(private readonly productsRepository: ProductsRepository) {}
 
@@ -18,7 +22,7 @@ export class ProductsService {
 		return await this.productsRepository.getById(id);
 	}
 
-	async updateById(dto: UpdateProductDto): Promise<Product> {
+	async update(dto: UpdateProductDto): Promise<Product> {
 		return await this.productsRepository.updateById(dto);
 	}
 
