@@ -2,12 +2,12 @@ import { postgresConfigRegister } from '@config/config';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Product } from '@entities/entities';
 import { ApolloFederationDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import { validate } from './config/config.validation';
-import { ProductsModule } from './products/products.module';
+import { Product } from './entities/product.entity';
+import { Cart } from './entities/cart.entity';
 
 import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig } from '@config/config';
@@ -33,14 +33,13 @@ import type { PostgresConfig } from '@config/config';
 				username,
 				password,
 				database,
-				entities: [Product],
+				entities: [Cart, Product],
 				synchronize: true,
 				autoLoadEntities: true,
 				logging: true,
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),
-		ProductsModule,
 	],
 })
 export class AppModule {}

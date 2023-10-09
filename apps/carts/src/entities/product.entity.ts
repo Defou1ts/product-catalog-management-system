@@ -1,18 +1,19 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Directive, Int } from '@nestjs/graphql';
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
+@Directive('@key(fields: "id")')
 @Entity('products')
 export class Product {
 	@Field(() => ID)
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Field()
+	@Field(() => Date)
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@Field()
+	@Field(() => Date)
 	@UpdateDateColumn()
 	updatedAt: Date;
 
@@ -20,7 +21,7 @@ export class Product {
 	@Column()
 	name: string;
 
-	@Field(() => Number)
+	@Field((type) => Int)
 	@Column('int')
 	price: number;
 }

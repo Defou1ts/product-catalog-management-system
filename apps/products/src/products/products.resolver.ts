@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, ResolveReference, Resolver } from '@nestjs/graphql';
 import { Product } from '@entities/entities';
 
 import { ProductsService } from './products.service';
@@ -32,5 +32,10 @@ export class ProductsResolver {
 	@Mutation(() => Number)
 	async removeProduct(@Args('id') id: number): Promise<number> {
 		return await this.productsService.removeById(id);
+	}
+
+	@ResolveReference()
+	async resolveReference(reference: { __typename: string; id: number }) {
+		return await this.productsService.getById(reference.id);
 	}
 }

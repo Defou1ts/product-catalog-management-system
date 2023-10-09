@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 
 import { User } from './user.entity';
-import { Product } from './product.entity';
 
 @Entity('orders')
 export class Order {

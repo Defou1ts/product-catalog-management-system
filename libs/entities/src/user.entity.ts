@@ -9,9 +9,6 @@ import {
 	UpdateDateColumn,
 } from 'typeorm';
 
-import { Cart } from './cart.entity';
-import { Order } from './order.entity';
-
 @Entity('users')
 export class User {
 	@PrimaryGeneratedColumn()

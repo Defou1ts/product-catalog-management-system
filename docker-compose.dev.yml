@@ -23,8 +23,10 @@ services:
             - '${GATEWAY_PORT}:${GATEWAY_PORT}'
         depends_on:
             - postgres
+            - products
         restart: always
     products:
+        hostname: '${PRODUCTS_HOST}'
         container_name: products-dev
         env_file:
             - .env.root.dev

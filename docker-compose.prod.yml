@@ -14,8 +14,10 @@ services:
             - '${GATEWAY_PORT}:${GATEWAY_PORT}'
         depends_on:
             - postgres
+            - products
         restart: always
     products:
+        hostname: '${PRODUCTS_HOST}'
         container_name: products
         env_file:
             - .env.root
@@ -26,6 +28,21 @@ services:
             target: production
         ports:
             - '${PRODUCTS_PORT}:${PRODUCTS_PORT}'
+        depends_on:
+            - postgres
+        restart: always
+    carts:
+        hostname: '${CARTS_HOST}'
+        container_name: carts
+        env_file:
+            - .env.root
+            - ./apps/carts/.env
+        build:
+            context: .
+            dockerfile: ./apps/carts/Dockerfile
+            target: production
+        ports:
+            - '${CARTS_PORT}:${CARTS_PORT}'
         depends_on:
             - postgres
         restart: always
