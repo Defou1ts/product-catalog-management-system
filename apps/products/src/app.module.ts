@@ -6,17 +6,19 @@ import { ApolloFederationDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 
 import { validate } from './config/config.validation';
-import { ProductsModule } from './products/products.module';
 import { Product } from './entities/product.entity';
+import { ProductsModule } from './products/products.module';
 
-import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig } from '@config/config';
+import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 
 @Module({
 	imports: [
 		GraphQLModule.forRoot<ApolloFederationDriverConfig>({
 			driver: ApolloFederationDriver,
-			autoSchemaFile: true,
+			autoSchemaFile: {
+				federation: 2,
+			},
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,

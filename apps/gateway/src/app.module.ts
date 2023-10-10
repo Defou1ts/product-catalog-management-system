@@ -22,11 +22,11 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 				supergraphSdl: new IntrospectAndCompose({
 					subgraphs: [
 						{
-							name: 'Product',
+							name: 'Products',
 							url: `http://${process.env.PRODUCTS_HOST}:${process.env.PRODUCTS_PORT}/graphql`,
 						},
 						{
-							name: 'Cart',
+							name: 'Carts',
 							url: `http://${process.env.CARTS_HOST}:${process.env.CARTS_PORT}/graphql`,
 						},
 					],

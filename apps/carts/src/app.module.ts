@@ -8,9 +8,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { validate } from './config/config.validation';
 import { Product } from './entities/product.entity';
 import { Cart } from './entities/cart.entity';
+import { CartsModule } from './carts/carts.module';
 
-import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig } from '@config/config';
+import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 
 @Module({
 	imports: [
@@ -40,6 +41,7 @@ import type { PostgresConfig } from '@config/config';
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),
+		CartsModule,
 	],
 })
 export class AppModule {}

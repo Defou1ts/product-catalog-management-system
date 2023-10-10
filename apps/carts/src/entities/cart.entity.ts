@@ -19,7 +19,7 @@ export class Cart {
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@Field((type) => Product)
+	@Field((type) => [Product])
 	@ManyToMany(() => Product)
 	@JoinTable()
 	products: Product[];

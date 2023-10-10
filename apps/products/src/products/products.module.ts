@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ProductsRepository } from './products.repository';
-import { ProductsService } from './products.service';
 import { ProductsResolver } from './products.resolver';
+import { ProductsService } from './products.service';
 
 import { Product } from '../entities/product.entity';
 
