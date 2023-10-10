@@ -8,6 +8,10 @@ import { Cart } from '../entities/cart.entity';
 export class CartsRepository {
 	constructor(@InjectRepository(Cart) private readonly cartsEntity: Repository<Cart>) {}
 
+	async saveCart(cart: Cart) {
+		await this.cartsEntity.save(cart);
+	}
+
 	async getById(id: number): Promise<Cart> {
 		return await this.cartsEntity.findOne({ where: { id }, relations: { products: true } });
 	}

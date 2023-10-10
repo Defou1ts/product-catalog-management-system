@@ -3,6 +3,12 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class RequiredEnvironmentVariables {
 	@IsNumber()
+	PRODUCTS_PORT: number;
+
+	@IsNumber()
+	PRODUCTS_HOST: number;
+
+	@IsNumber()
 	CARTS_PORT: number;
 
 	@IsString()

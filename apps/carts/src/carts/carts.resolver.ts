@@ -1,6 +1,7 @@
 import { Args, Int, Mutation, Parent, Query, ResolveField, ResolveReference, Resolver } from '@nestjs/graphql';
 
 import { CartsService } from './carts.service';
+import { AddProductDto } from './dto/add-product.dto';
 
 import { Cart } from '../entities/cart.entity';
 import { Product } from '../entities/product.entity';
@@ -17,6 +18,16 @@ export class CartsResolver {
 	@Mutation(() => Int)
 	async removeCartById(@Args('id') id: number): Promise<number> {
 		return await this.cartsService.removeById(id);
+	}
+
+	@Mutation(() => Cart)
+	async addProductToCart(@Args('addProductDto') dto: AddProductDto): Promise<Cart> {
+		return await this.cartsService.addProduct(dto);
+	}
+
+	@Mutation(() => Cart)
+	async removeProductFromCart(@Args('removeProductDto') dto: AddProductDto): Promise<Cart> {
+		return await this.cartsService.addProduct(dto);
 	}
 
 	@ResolveReference()
