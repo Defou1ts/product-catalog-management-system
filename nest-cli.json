@@ -1,59 +1,68 @@
 {
-  "$schema": "https://json.schemastore.org/nest-cli",
-  "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/gateway/src",
-  "compilerOptions": {
-    "deleteOutDir": true,
-    "webpack": true,
-    "tsConfigPath": "apps/gateway/tsconfig.app.json"
-  },
-  "monorepo": true,
-  "root": "apps/gateway",
-  "projects": {
-    "gateway": {
-      "type": "application",
-      "root": "apps/gateway",
-      "entryFile": "main",
-      "sourceRoot": "apps/gateway/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/gateway/tsconfig.app.json"
-      }
-    },
-    "products": {
-      "type": "application",
-      "root": "apps/products",
-      "entryFile": "main",
-      "sourceRoot": "apps/products/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/products/tsconfig.app.json"
-      }
-    },
-    "config": {
-      "type": "library",
-      "root": "libs/config",
-      "entryFile": "index",
-      "sourceRoot": "libs/config/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/config/tsconfig.lib.json"
-      }
-    },
-    "entities": {
-      "type": "library",
-      "root": "libs/entities",
-      "entryFile": "index",
-      "sourceRoot": "libs/entities/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/entities/tsconfig.lib.json"
-      }
-    },
-    "carts": {
-      "type": "application",
-      "root": "apps/carts",
-      "entryFile": "main",
-      "sourceRoot": "apps/carts/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/carts/tsconfig.app.json"
-      }
-    }
-  }
+	"$schema": "https://json.schemastore.org/nest-cli",
+	"collection": "@nestjs/schematics",
+	"sourceRoot": "apps/gateway/src",
+	"compilerOptions": {
+		"deleteOutDir": true,
+		"webpack": true,
+		"tsConfigPath": "apps/gateway/tsconfig.app.json"
+	},
+	"monorepo": true,
+	"root": "apps/gateway",
+	"projects": {
+		"gateway": {
+			"type": "application",
+			"root": "apps/gateway",
+			"entryFile": "main",
+			"sourceRoot": "apps/gateway/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/gateway/tsconfig.app.json"
+			}
+		},
+		"products": {
+			"type": "application",
+			"root": "apps/products",
+			"entryFile": "main",
+			"sourceRoot": "apps/products/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/products/tsconfig.app.json"
+			}
+		},
+		"config": {
+			"type": "library",
+			"root": "libs/config",
+			"entryFile": "index",
+			"sourceRoot": "libs/config/src",
+			"compilerOptions": {
+				"tsConfigPath": "libs/config/tsconfig.lib.json"
+			}
+		},
+		"auth": {
+			"type": "library",
+			"root": "libs/auth",
+			"entryFile": "index",
+			"sourceRoot": "libs/auth/src",
+			"compilerOptions": {
+				"tsConfigPath": "libs/auth/tsconfig.lib.json"
+			}
+		},
+		"carts": {
+			"type": "application",
+			"root": "apps/carts",
+			"entryFile": "main",
+			"sourceRoot": "apps/carts/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/carts/tsconfig.app.json"
+			}
+		},
+		"users": {
+			"type": "application",
+			"root": "apps/users",
+			"entryFile": "main",
+			"sourceRoot": "apps/users/src",
+			"compilerOptions": {
+				"tsConfigPath": "apps/users/tsconfig.app.json"
+			}
+		}
+	}
 }

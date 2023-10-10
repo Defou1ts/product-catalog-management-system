@@ -3,13 +3,10 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class RequiredEnvironmentVariables {
 	@IsNumber()
-	GATEWAY_PORT: number;
-
-	@IsNumber()
-	PRODUCTS_PORT: number;
+	USERS_PORT: number;
 
 	@IsString()
-	PRODUCTS_HOST: string;
+	JWT_SECRET: string;
 
 	@IsString()
 	POSTGRES_HOST: string;
@@ -25,21 +22,6 @@ export class RequiredEnvironmentVariables {
 
 	@IsString()
 	POSTGRES_DB: string;
-
-	@IsString()
-	JWT_ACCESS_TOKEN_SECRET: string;
-
-	@IsNumber()
-	JWT_ACCESS_TOKEN_EXPIRATION_TIME: number;
-
-	@IsString()
-	JWT_REFRESH_TOKEN_SECRET: string;
-
-	@IsNumber()
-	JWT_REFRESH_TOKEN_EXPIRATION_TIME: number;
-
-	@IsNumber()
-	SALT: number;
 }
 
 export const validate = createValidateFunction(RequiredEnvironmentVariables);

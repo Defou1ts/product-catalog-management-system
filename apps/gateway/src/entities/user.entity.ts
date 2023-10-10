@@ -3,11 +3,16 @@ import {
 	CreateDateColumn,
 	Entity,
 	JoinColumn,
+	ManyToOne,
 	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
+
+import { Cart } from './cart.entity';
+import { Order } from './order.entity';
+import { Role } from './role.entity';
 
 @Entity('users')
 export class User {
@@ -19,6 +24,9 @@ export class User {
 
 	@Column()
 	password: string;
+
+	@Column()
+	hashedRefreshToken: string;
 
 	@CreateDateColumn()
 	createdAt: Date;
@@ -32,4 +40,7 @@ export class User {
 
 	@OneToMany(() => Order, (order) => order.user)
 	orders: Order[];
+
+	@ManyToOne(() => Role, (role) => role.users)
+	role: Role;
 }
