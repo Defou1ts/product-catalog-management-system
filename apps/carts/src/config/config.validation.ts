@@ -5,8 +5,8 @@ export class RequiredEnvironmentVariables {
 	@IsNumber()
 	PRODUCTS_PORT: number;
 
-	@IsNumber()
-	PRODUCTS_HOST: number;
+	@IsString()
+	PRODUCTS_HOST: string;
 
 	@IsNumber()
 	CARTS_PORT: number;
