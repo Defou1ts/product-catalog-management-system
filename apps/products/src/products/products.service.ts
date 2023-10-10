@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 import { ProductsRepository } from './products.repository';
 
+import type { Product } from '../entities/product.entity';
 import type { CreateProductDto } from './dto/create-product.dto';
 import type { UpdateProductDto } from './dto/update-product.dto';
-import type { Product } from '@entities/entities';
 
 @Injectable()
 export class ProductsService {

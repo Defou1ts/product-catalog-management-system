@@ -1,11 +1,12 @@
 import { Args, Mutation, Query, ResolveReference, Resolver } from '@nestjs/graphql';
-import { Product } from '@entities/entities';
 
 import { ProductsService } from './products.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 
-@Resolver('Products')
+import { Product } from '../entities/product.entity';
+
+@Resolver(() => Product)
 export class ProductsResolver {
 	constructor(private readonly productsService: ProductsService) {}
 
