@@ -6,6 +6,7 @@ import { ApolloGatewayDriver } from '@nestjs/apollo';
 
 import { validate } from './config/config.validation';
 import { servicesConfigRegister } from './config/services.config';
+import { authContext } from './auth.context';
 
 import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 
@@ -18,6 +19,9 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 		}),
 		GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
 			driver: ApolloGatewayDriver,
+			server: {
+				context: authContext,
+			},
 			gateway: {
 				supergraphSdl: new IntrospectAndCompose({
 					subgraphs: [
