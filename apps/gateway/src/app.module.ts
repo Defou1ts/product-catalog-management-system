@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
-import { IntrospectAndCompose } from '@apollo/gateway';
+import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ApolloGatewayDriver } from '@nestjs/apollo';
 import { postgresConfigRegister } from '@config/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -18,7 +18,9 @@ import { User } from './entities/user.entity';
 import { Cart } from './entities/cart.entity';
 import { Order } from './entities/order.entity';
 import { Product } from './entities/product.entity';
+import { JwtAuthMiddleware } from './auth/middlewares/jwt-auth.middleware';
 
+import type { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import type { PostgresConfig } from '@config/config';
 import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 
@@ -46,7 +48,22 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 		}),
 		GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
 			driver: ApolloGatewayDriver,
+			server: {
+				context: ({ req }: any) => {
+					return { req };
+				},
+			},
 			gateway: {
+				buildService: ({ name, url }) => {
+					return new RemoteGraphQLDataSource({
+						url,
+						willSendRequest({ request, context }: any) {
+							console.log(context.user);
+							console.log(request);
+							request.http.headers.set('user', context.user);
+						},
+					});
+				},
 				supergraphSdl: new IntrospectAndCompose({
 					subgraphs: [
 						{
@@ -73,7 +90,9 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 		RolesModule,
 		JwtAuthModule,
 	],
-	controllers: [],
-	providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+	configure(consumer: MiddlewareConsumer) {
+		consumer.apply(JwtAuthMiddleware).forRoutes('graphql');
+	}
+}

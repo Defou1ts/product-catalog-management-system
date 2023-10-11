@@ -8,11 +8,26 @@ import { JwtRefreshStrategy } from './strategies/jwt-refresh-strategy';
 import { JwtAuthService } from './jwt-auth.service';
 
 import { UsersModule } from '../users/users.module';
+import { jwtConfigRegister } from '../config/jwt.config';
+
+import type { JwtConfig } from '../config/jwt.config';
 
 @Module({
 	controllers: [JwtAuthController],
 	providers: [JwtStrategy, JwtRefreshStrategy, JwtAuthService],
-	imports: [JwtModule.register({}), PassportModule.register({}), UsersModule],
+	imports: [
+		JwtModule.registerAsync({
+			useFactory: ({ accessTokenSecret, accessTokenExpiration }: JwtConfig) => ({
+				secret: accessTokenSecret,
+				signOptions: {
+					expiresIn: accessTokenExpiration,
+				},
+			}),
+			inject: [jwtConfigRegister.KEY],
+		}),
+		PassportModule.register({}),
+		UsersModule,
+	],
 	exports: [JwtModule],
 })
 export class JwtAuthModule {}
