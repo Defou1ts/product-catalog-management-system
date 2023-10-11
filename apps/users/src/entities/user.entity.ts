@@ -17,6 +17,7 @@ import { Role } from './role.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Directive('@shareable')
 @Entity('users')
 export class User {
 	@Field(() => ID)

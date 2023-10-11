@@ -14,6 +14,7 @@ import { Product } from './product.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Directive('@shareable')
 @Entity('orders')
 export class Order {
 	@Field(() => ID)

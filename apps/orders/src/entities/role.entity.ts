@@ -5,14 +5,13 @@ import { User } from './user.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Directive('@shareable')
 @Entity('roles')
 export class Role {
-	@Directive('@shareable')
 	@Field(() => ID)
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Directive('@shareable')
 	@Field()
 	@Column()
 	value: string;

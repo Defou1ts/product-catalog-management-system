@@ -14,19 +14,17 @@ import { Product } from './product.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Directive('@shareable')
 @Entity('orders')
 export class Order {
-	@Directive('@shareable')
 	@Field(() => ID)
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Directive('@shareable')
 	@Field(() => Date)
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@Directive('@shareable')
 	@Field(() => Date)
 	@UpdateDateColumn()
 	updatedAt: Date;

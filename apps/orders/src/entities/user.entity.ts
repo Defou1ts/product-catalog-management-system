@@ -17,34 +17,29 @@ import { Role } from './role.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Directive('@shareable')
 @Entity('users')
 export class User {
-	@Directive('@shareable')
 	@Field(() => ID)
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Directive('@shareable')
 	@Field()
 	@Column()
 	email: string;
 
-	@Directive('@shareable')
 	@Field()
 	@Column()
 	password: string;
 
-	@Directive('@shareable')
 	@Field()
 	@Column({ nullable: true })
 	hashedRefreshToken: string;
 
-	@Directive('@shareable')
 	@Field(() => Date)
 	@CreateDateColumn()
 	createdAt: Date;
 
-	@Directive('@shareable')
 	@Field(() => Date)
 	@UpdateDateColumn()
 	updatedAt: Date;

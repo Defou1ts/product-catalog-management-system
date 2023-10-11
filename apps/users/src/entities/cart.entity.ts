@@ -5,20 +5,18 @@ import { Product } from './product.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Directive('@shareable')
 @Entity('carts')
 export class Cart {
 	@Field(() => ID)
-	@Directive('@shareable')
 	@PrimaryGeneratedColumn()
 	id: number;
 
 	@Field(() => Date)
-	@Directive('@shareable')
 	@CreateDateColumn()
 	createdAt: Date;
 
 	@Field(() => Date)
-	@Directive('@shareable')
 	@UpdateDateColumn()
 	updatedAt: Date;
 
