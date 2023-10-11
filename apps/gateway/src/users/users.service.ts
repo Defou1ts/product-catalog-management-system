@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { UserRoles } from '@auth/auth';
 
-import { UserRoles } from './constants/user-roles';
 import { UNKNOWN_USER_EXCEPTION, UNKNOWN_USER_ROLE_EXCEPTION } from './constants/user-exceptions';
 import { UsersRepository } from './users.repostiory';
 

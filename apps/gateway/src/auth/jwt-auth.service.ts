@@ -8,11 +8,11 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
+import { UserRoles } from '@auth/auth';
 
 import { UsersService } from '../users/users.service';
 import { EncryptionConfig, encryptionConfigRegister } from '../config/encryption.config';
 import { JwtConfig, jwtConfigRegister } from '../config/jwt.config';
-import { UserRoles } from '../users/constants/user-roles';
 
 import type { LoginUserDto } from '../users/dto/login-user-dto';
 import type { JwtPayload } from './strategies/jwt-strategy';

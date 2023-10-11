@@ -1,8 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { UserRoles } from '@auth/auth';
 
 import { RolesRepository } from './roles.repository';
-
-import { UserRoles } from '../users/constants/user-roles';
 
 import type { OnModuleInit } from '@nestjs/common';
 import type { CreateRoleDto } from './dto/create-role.dto';
