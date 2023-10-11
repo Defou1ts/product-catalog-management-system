@@ -13,17 +13,17 @@ export class UsersResolver {
 	constructor(private readonly usersService: UsersService) {}
 
 	@Query(() => [User])
-	async getAll(): Promise<User[]> {
+	async getAllUsers(): Promise<User[]> {
 		return await this.usersService.getAllUsers();
 	}
 
 	@Query(() => User)
-	async getByEmail(@Args('email') email: string): Promise<User> {
+	async getUserByEmail(@Args('email') email: string): Promise<User> {
 		return await this.usersService.getUserByEmail(email);
 	}
 
 	@Mutation(() => User)
-	async setRole(@Args('setRoleDto') dto: SetRoleDto) {
+	async setRoleForUser(@Args('setRoleDto') dto: SetRoleDto) {
 		return await this.usersService.setRole(dto);
 	}
 
