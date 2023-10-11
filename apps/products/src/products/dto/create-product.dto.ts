@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { IsNumber, IsString } from 'class-validator';
 
 @InputType()
@@ -8,6 +8,6 @@ export class CreateProductDto {
 	name: string;
 
 	@IsNumber()
-	@Field(() => Number)
+	@Field(() => Int)
 	price: number;
 }
