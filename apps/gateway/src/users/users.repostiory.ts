@@ -23,7 +23,6 @@ export class UsersRepository {
 	}
 
 	async getByEmail(email: string) {
-		console.log(email);
 		const user = await this.userEntity.findOne({
 			where: { email },
 			relations: { role: true, orders: true, cart: true },

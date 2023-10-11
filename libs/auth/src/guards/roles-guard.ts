@@ -1,16 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { GqlExecutionContext } from '@nestjs/graphql';
 
 import { ROLES_KEY } from '../decorators/roles-auth.decorator';
 
-import type { CanActivate, ExecutionContext } from '@nestjs/common';
+import type { GraphQLExecutionContext } from '@nestjs/graphql';
+import type { CanActivate } from '@nestjs/common';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
 	constructor(private readonly reflector: Reflector) {}
 
-	canActivate(context: ExecutionContext): boolean {
+	canActivate(context: GraphQLExecutionContext): boolean {
 		try {
 			const requiredRole = this.reflector.getAllAndOverride<string>(ROLES_KEY, [
 				context.getHandler(),
@@ -21,9 +21,9 @@ export class RolesGuard implements CanActivate {
 				return true;
 			}
 
-			const request = GqlExecutionContext.create(context).getContext().req;
+			const headers = context.getArgs()[2].req.headers;
 
-			const user = request.user;
+			const user = JSON.parse(headers.user);
 
 			return user.role.value === requiredRole;
 		} catch (e) {

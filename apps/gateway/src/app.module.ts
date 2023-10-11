@@ -54,13 +54,14 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 				},
 			},
 			gateway: {
-				buildService: ({ name, url }) => {
+				buildService({ url }) {
 					return new RemoteGraphQLDataSource({
 						url,
-						willSendRequest({ request, context }: any) {
-							console.log(context.user);
-							console.log(request);
-							request.http.headers.set('user', context.user);
+						willSendRequest({ request, context }) {
+							request.http.headers.set(
+								'user',
+								context?.req?.user ? JSON.stringify(context?.req?.user) : null,
+							);
 						},
 					});
 				},
