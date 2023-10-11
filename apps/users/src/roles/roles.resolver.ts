@@ -6,17 +6,17 @@ import { RolesService } from './roles.service';
 import { User } from '../entities/user.entity';
 import { Role } from '../entities/role.entity';
 
-@Resolver('Role')
+@Resolver(() => Role)
 export class RolesResolver {
 	constructor(private readonly roleSerive: RolesService) {}
 
-	@Mutation('createRole')
-	async createRole(@Args('createRoleDto') dto: CreateRoleDto) {
+	@Mutation(() => Role)
+	async createRole(@Args('createRoleDto') dto: CreateRoleDto): Promise<Role> {
 		return await this.roleSerive.createRole(dto);
 	}
 
-	@Query('getRoleByValue')
-	async getByValue(@Args('value') value: string) {
+	@Query(() => Role)
+	async getRoleByValue(@Args('value') value: string): Promise<Role> {
 		return await this.roleSerive.getRoleByValue(value);
 	}
 
