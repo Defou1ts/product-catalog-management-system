@@ -7,15 +7,16 @@ import { User } from './user.entity';
 @Directive('@key(fields: "id")')
 @Entity('roles')
 export class Role {
+	@Directive('@shareable')
 	@Field(() => ID)
 	@PrimaryGeneratedColumn()
 	id: number;
 
+	@Directive('@shareable')
 	@Field()
 	@Column()
 	value: string;
 
-	@Field((type) => [User])
 	@OneToMany(() => User, (user) => user.role)
 	users: User[];
 }

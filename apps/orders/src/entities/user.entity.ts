@@ -19,40 +19,43 @@ import { Role } from './role.entity';
 @Directive('@key(fields: "id")')
 @Entity('users')
 export class User {
+	@Directive('@shareable')
 	@Field(() => ID)
 	@PrimaryGeneratedColumn()
 	id: number;
 
+	@Directive('@shareable')
 	@Field()
 	@Column()
 	email: string;
 
+	@Directive('@shareable')
 	@Field()
 	@Column()
 	password: string;
 
+	@Directive('@shareable')
 	@Field()
 	@Column({ nullable: true })
 	hashedRefreshToken: string;
 
+	@Directive('@shareable')
 	@Field(() => Date)
 	@CreateDateColumn()
 	createdAt: Date;
 
+	@Directive('@shareable')
 	@Field(() => Date)
 	@UpdateDateColumn()
 	updatedAt: Date;
 
-	@Field((type) => Cart)
 	@OneToOne(() => Cart)
 	@JoinColumn()
 	cart: Cart;
 
-	@Field((type) => [Order])
 	@OneToMany(() => Order, (order) => order.user)
 	orders: Order[];
 
-	@Field((type) => Role)
 	@ManyToOne(() => Role, (role) => role.users)
 	role: Role;
 }
