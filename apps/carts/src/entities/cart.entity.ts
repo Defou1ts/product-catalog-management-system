@@ -11,10 +11,12 @@ export class Cart {
 	@PrimaryGeneratedColumn()
 	id: number;
 
+	@Directive('@shareable')
 	@Field(() => Date)
 	@CreateDateColumn()
 	createdAt: Date;
 
+	@Directive('@shareable')
 	@Field(() => Date)
 	@UpdateDateColumn()
 	updatedAt: Date;
