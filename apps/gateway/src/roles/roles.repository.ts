@@ -11,7 +11,7 @@ export class RolesRepository {
 	constructor(@InjectRepository(Role) private readonly rolesEntity: Repository<Role>) {}
 
 	async create(dto: CreateRoleDto) {
-		return this.rolesEntity.create(dto);
+		return await this.rolesEntity.save(dto);
 	}
 
 	async getByValue(value: string) {

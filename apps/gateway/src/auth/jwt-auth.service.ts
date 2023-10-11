@@ -14,6 +14,7 @@ import { EncryptionConfig, encryptionConfigRegister } from '../config/encryption
 import { JwtConfig, jwtConfigRegister } from '../config/jwt.config';
 import { UserRoles } from '../users/constants/user-roles';
 
+import type { LoginUserDto } from '../users/dto/login-user-dto';
 import type { JwtPayload } from './strategies/jwt-strategy';
 import type { JwtLoginResponseDto } from './dto/jwt-login-response.dto';
 import type { CreateUserDto } from '../users/dto/create-user-dto';
@@ -28,17 +29,17 @@ export class JwtAuthService {
 	) {}
 
 	async onModuleInit() {
-		const createdOrganizerEmail = 'admin@admin.com';
-		const organizer = await this.userService.getUserByEmail(createdOrganizerEmail);
+		const createdAdminEmail = 'admin@admin.com';
+		const admin = await this.userService.getUserByEmail(createdAdminEmail);
 
-		if (!organizer) {
-			await this.registration({ email: createdOrganizerEmail, password: '1234' });
-			const createdOrganizer = await this.userService.getUserByEmail(createdOrganizerEmail);
-			await this.userService.setRole({ value: UserRoles.ADMIN, userId: createdOrganizer.id });
+		if (!admin) {
+			await this.registration({ email: createdAdminEmail, password: '1234' });
+			const createdAdmin = await this.userService.getUserByEmail(createdAdminEmail);
+			await this.userService.setRole({ value: UserRoles.ADMIN, userId: createdAdmin.id });
 		}
 	}
 
-	async login(userDto: CreateUserDto): Promise<JwtLoginResponseDto> {
+	async login(userDto: LoginUserDto): Promise<JwtLoginResponseDto> {
 		const user = await this.validateUser(userDto);
 
 		const { email } = user;
@@ -69,9 +70,7 @@ export class JwtAuthService {
 		const accessToken = await this.getAccesToken({ email });
 		const refreshToken = await this.getRefreshToken({ email });
 
-		const hashedRefreshToken = await bcrypt.hash(refreshToken, this.encryptionConfig.salt);
-
-		await this.userService.updateUserRefreshTokenByEmail(hashedRefreshToken, email);
+		await this.updateRefreshTokenInUser(refreshToken, email);
 
 		return {
 			accessToken,

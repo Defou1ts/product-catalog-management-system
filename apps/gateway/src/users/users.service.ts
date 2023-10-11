@@ -5,6 +5,7 @@ import { UNKNOWN_USER_EXCEPTION, UNKNOWN_USER_ROLE_EXCEPTION } from './constants
 import { UsersRepository } from './users.repostiory';
 
 import { RolesService } from '../roles/roles.service';
+import { CartsService } from '../carts/cart.service';
 
 import type { CreateUserDto } from './dto/create-user-dto';
 import type { SetRoleDto } from './dto/set-role.dto';
@@ -14,16 +15,21 @@ export class UsersService {
 	constructor(
 		private readonly usersRepository: UsersRepository,
 		private readonly roleService: RolesService,
+		private readonly cartsService: CartsService,
 	) {}
 
 	async createUser(dto: CreateUserDto) {
 		const user = await this.usersRepository.create(dto);
 		const role = await this.roleService.getRoleByValue(UserRoles.USER);
+		const cart = await this.cartsService.createCart();
 
 		if (role) {
 			user.role = role;
-			await this.usersRepository.save(user);
 		}
+
+		user.cart = cart;
+
+		await this.usersRepository.save(user);
 
 		return user;
 	}

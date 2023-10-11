@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { RolesRepository } from './roles.repository';
 
@@ -13,7 +13,7 @@ export class RolesService implements OnModuleInit {
 
 	async onModuleInit() {
 		const userRole = await this.rolesRepository.getByValue(UserRoles.USER);
-		const organizerRole = await this.rolesRepository.getByValue(UserRoles.USER);
+		const adminRole = await this.rolesRepository.getByValue(UserRoles.ADMIN);
 
 		if (!userRole) {
 			await this.createRole({
@@ -21,7 +21,7 @@ export class RolesService implements OnModuleInit {
 			});
 		}
 
-		if (!organizerRole) {
+		if (!adminRole) {
 			await this.createRole({
 				value: UserRoles.ADMIN,
 			});
@@ -35,8 +35,6 @@ export class RolesService implements OnModuleInit {
 
 	async getRoleByValue(value: string) {
 		const role = await this.rolesRepository.getByValue(value);
-
-		if (!role) throw new NotFoundException();
 
 		return role;
 	}

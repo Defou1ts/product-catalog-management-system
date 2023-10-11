@@ -15,9 +15,12 @@ import { RolesModule } from './roles/roles.module';
 import { UsersModule } from './users/users.module';
 import { Role } from './entities/role.entity';
 import { User } from './entities/user.entity';
+import { Cart } from './entities/cart.entity';
+import { Order } from './entities/order.entity';
+import { Product } from './entities/product.entity';
 
-import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig } from '@config/config';
+import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 
 @Module({
 	imports: [
@@ -34,7 +37,7 @@ import type { PostgresConfig } from '@config/config';
 				username,
 				password,
 				database,
-				entities: [User, Role],
+				entities: [User, Role, Cart, Order, Product],
 				synchronize: true,
 				autoLoadEntities: true,
 				logging: true,

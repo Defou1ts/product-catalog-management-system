@@ -5,6 +5,7 @@ import { JwtRefreshTokenGuard } from './guards/jwt-refresh.guard';
 import { JwtAuthService } from './jwt-auth.service';
 
 import { CreateUserDto } from '../users/dto/create-user-dto';
+import { LoginUserDto } from '../users/dto/login-user-dto';
 
 @Controller('auth')
 export class JwtAuthController {
@@ -12,7 +13,7 @@ export class JwtAuthController {
 
 	@HttpCode(200)
 	@Post('/login')
-	async login(@Body() userDto: CreateUserDto) {
+	async login(@Body() userDto: LoginUserDto) {
 		return await this.jwtAuthService.login(userDto);
 	}
 

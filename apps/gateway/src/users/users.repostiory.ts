@@ -15,7 +15,7 @@ export class UsersRepository {
 	}
 
 	async create(dto: CreateUserDto) {
-		return this.userEntity.create(dto);
+		return await this.userEntity.save(dto);
 	}
 
 	async getAll() {
@@ -23,10 +23,13 @@ export class UsersRepository {
 	}
 
 	async getByEmail(email: string) {
-		return await this.userEntity.findOne({
+		console.log(email);
+		const user = await this.userEntity.findOne({
 			where: { email },
 			relations: { role: true },
 		});
+
+		return user;
 	}
 
 	async getByPrimaryKey(id: number) {
