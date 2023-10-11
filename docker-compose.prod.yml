@@ -63,6 +63,21 @@ services:
         depends_on:
             - postgres
         restart: always
+    orders:
+        hostname: '${ORDERS_HOST}'
+        container_name: orders
+        env_file:
+            - .env.root
+            - ./apps/orders/.env
+        build:
+            context: .
+            dockerfile: ./apps/orders/Dockerfile
+            target: production
+        ports:
+            - '${ORDERS_PORT}:${ORDERS_PORT}'
+        depends_on:
+            - postgres
+        restart: always
     postgres:
         hostname: '${POSTGRES_HOST}'
         container_name: postgres

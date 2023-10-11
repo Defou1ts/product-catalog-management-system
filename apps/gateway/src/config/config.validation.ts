@@ -11,6 +11,18 @@ export class RequiredEnvironmentVariables {
 	@IsString()
 	PRODUCTS_HOST: string;
 
+	@IsNumber()
+	USERS_PORT: number;
+
+	@IsString()
+	USERS_HOST: string;
+
+	@IsNumber()
+	ORDERS_PORT: number;
+
+	@IsString()
+	ORDERS_HOST: string;
+
 	@IsString()
 	POSTGRES_HOST: string;
 

@@ -61,6 +61,10 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 							name: 'Users',
 							url: `http://${process.env.USERS_HOST}:${process.env.USERS_PORT}/graphql`,
 						},
+						{
+							name: 'Orders',
+							url: `http://${process.env.ORDERS_HOST}:${process.env.ORDERS_PORT}/graphql`,
+						},
 					],
 				}),
 			},

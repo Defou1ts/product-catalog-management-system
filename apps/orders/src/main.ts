@@ -10,7 +10,7 @@ async function bootstrap() {
 	const port = configService.get('ORDERS_PORT');
 
 	await app.listen(port, () => {
-		console.log(`Users service succesfully started at port ${port}`);
+		console.log(`Orders service succesfully started at port ${port}`);
 	});
 }
 void bootstrap();
