@@ -40,7 +40,7 @@ import type { PostgresConfig } from '@config/config';
 				entities: [Cart, Order, Product, User, Role],
 				synchronize: true,
 				autoLoadEntities: true,
-				logging: true,
+				logging: ['error', 'migration'],
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),

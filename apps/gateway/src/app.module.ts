@@ -42,7 +42,7 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 				entities: [User, Role, Cart, Order, Product],
 				synchronize: true,
 				autoLoadEntities: true,
-				logging: true,
+				logging: ['error', 'migration'],
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),

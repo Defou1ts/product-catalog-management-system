@@ -36,7 +36,7 @@ import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 				entities: [Product],
 				synchronize: true,
 				autoLoadEntities: true,
-				logging: true,
+				logging: ['error', 'migration'],
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),
