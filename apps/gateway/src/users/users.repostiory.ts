@@ -19,20 +19,20 @@ export class UsersRepository {
 	}
 
 	async getAll() {
-		return await this.userEntity.find({ relations: { role: true } });
+		return await this.userEntity.find({ relations: { role: true, orders: true, cart: true } });
 	}
 
 	async getByEmail(email: string) {
 		console.log(email);
 		const user = await this.userEntity.findOne({
 			where: { email },
-			relations: { role: true },
+			relations: { role: true, orders: true, cart: true },
 		});
 
 		return user;
 	}
 
 	async getByPrimaryKey(id: number) {
-		return await this.userEntity.findOneBy({ id });
+		return await this.userEntity.findOne({ where: { id }, relations: { role: true, orders: true, cart: true } });
 	}
 }

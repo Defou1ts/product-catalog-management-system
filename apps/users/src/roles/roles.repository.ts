@@ -11,14 +11,14 @@ export class RolesRepository {
 	constructor(@InjectRepository(Role) private readonly rolesEntity: Repository<Role>) {}
 
 	async create(dto: CreateRoleDto) {
-		return this.rolesEntity.create(dto);
+		return await this.rolesEntity.save(dto);
 	}
 
 	async getByValue(value: string) {
-		return await this.rolesEntity.findOne({ where: { value } });
+		return await this.rolesEntity.findOne({ where: { value }, relations: { users: true } });
 	}
 
 	async getById(id: number) {
-		return await this.rolesEntity.findOne({ where: { id } });
+		return await this.rolesEntity.findOne({ where: { id }, relations: { users: true } });
 	}
 }

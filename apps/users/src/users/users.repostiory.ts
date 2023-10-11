@@ -3,32 +3,26 @@ import { Repository } from 'typeorm';
 
 import { User } from '../entities/user.entity';
 
-import type { CreateUserDto } from './dto/create-user-dto';
-
 @Injectable()
 export class UsersRepository {
 	constructor(@Inject(User) private readonly userEntity: Repository<User>) {}
+
+	async getById(id: number) {
+		return await this.userEntity.findOne({ where: { id }, relations: { role: true, orders: true, cart: true } });
+	}
 
 	async save(user: User) {
 		return await this.userEntity.save(user);
 	}
 
-	async create(dto: CreateUserDto) {
-		return this.userEntity.create(dto);
-	}
-
 	async getAll() {
-		return await this.userEntity.find({ relations: { role: true } });
+		return await this.userEntity.find({ relations: { role: true, orders: true, cart: true } });
 	}
 
 	async getByEmail(email: string) {
 		return await this.userEntity.findOne({
 			where: { email },
-			relations: { role: true },
+			relations: { role: true, orders: true, cart: true },
 		});
-	}
-
-	async getByPrimaryKey(id: number) {
-		return await this.userEntity.findOneBy({ id });
 	}
 }
