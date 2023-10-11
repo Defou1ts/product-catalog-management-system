@@ -63,7 +63,6 @@ services:
         hostname: orders
         container_name: orders
         env_file:
-            - .env.root
             - ./apps/orders/.env
         build:
             context: .
