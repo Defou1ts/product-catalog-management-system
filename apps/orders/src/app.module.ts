@@ -11,6 +11,7 @@ import { Order } from './entities/order.entity';
 import { Product } from './entities/product.entity';
 import { User } from './entities/user.entity';
 import { Role } from './entities/role.entity';
+import { OrdersModule } from './orders/orders.module';
 
 import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig } from '@config/config';
@@ -43,6 +44,7 @@ import type { PostgresConfig } from '@config/config';
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),
+		OrdersModule,
 	],
 })
 export class AppModule {}
