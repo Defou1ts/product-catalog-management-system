@@ -4,14 +4,13 @@ services:
     gateway:
         container_name: gateway
         env_file:
-            - .env.root
             - ./apps/gateway/.env
         build:
             context: .
             dockerfile: ./apps/gateway/Dockerfile
             target: production
         ports:
-            - '${GATEWAY_PORT}:${GATEWAY_PORT}'
+            - 3000:3000
         depends_on:
             - postgres
             - products
@@ -19,52 +18,49 @@ services:
             - users
         restart: always
     products:
-        hostname: '${PRODUCTS_HOST}'
+        hostname: products
         container_name: products
         env_file:
-            - .env.root
             - ./apps/products/.env
         build:
             context: .
             dockerfile: ./apps/products/Dockerfile
             target: production
         ports:
-            - '${PRODUCTS_PORT}:${PRODUCTS_PORT}'
+            - 3001
         depends_on:
             - postgres
         restart: always
     carts:
-        hostname: '${CARTS_HOST}'
+        hostname: carts
         container_name: carts
         env_file:
-            - .env.root
             - ./apps/carts/.env
         build:
             context: .
             dockerfile: ./apps/carts/Dockerfile
             target: production
         ports:
-            - '${CARTS_PORT}:${CARTS_PORT}'
+            - 3002
         depends_on:
             - postgres
         restart: always
     users:
-        hostname: '${USERS_HOST}'
+        hostname: users
         container_name: users
         env_file:
-            - .env.root
             - ./apps/users/.env
         build:
             context: .
             dockerfile: ./apps/users/Dockerfile
             target: production
         ports:
-            - '${USERS_PORT}:${USERS_PORT}'
+            - 3003
         depends_on:
             - postgres
         restart: always
     orders:
-        hostname: '${ORDERS_HOST}'
+        hostname: orders
         container_name: orders
         env_file:
             - .env.root
@@ -74,20 +70,22 @@ services:
             dockerfile: ./apps/orders/Dockerfile
             target: production
         ports:
-            - '${ORDERS_PORT}:${ORDERS_PORT}'
+            - 3004
         depends_on:
             - postgres
         restart: always
     postgres:
-        hostname: '${POSTGRES_HOST}'
+        hostname: postgres
         container_name: postgres
         image: postgres:14
-        env_file:
-            - .env.root
         environment:
             - PG_DATA=/var/lib/postgresql/data
+            - POSTGRES_HOST=postgres
+            - POSTGRES_USER=admin
+            - POSTGRES_DB=test
+            - POSTGRES_PASSWORD=12345
         ports:
-            - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+            - 5432
         volumes:
             - pgdata:/var/lib/postgresql/data
         restart: always

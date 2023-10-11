@@ -4,7 +4,6 @@ services:
     gateway:
         container_name: gateway-dev
         env_file:
-            - .env.root.dev
             - ./apps/gateway/.dev.env
         build:
             context: .
@@ -20,16 +19,17 @@ services:
                 - action: rebuild
                   path: package.json
         ports:
-            - '${GATEWAY_PORT}:${GATEWAY_PORT}'
+            - 3000:3000
         depends_on:
             - postgres
             - products
+            - carts
+            - users
         restart: always
     products:
-        hostname: '${PRODUCTS_HOST}'
+        hostname: products
         container_name: products-dev
         env_file:
-            - .env.root.dev
             - ./apps/products/.dev.env
         build:
             context: .
@@ -45,20 +45,91 @@ services:
                 - action: rebuild
                   path: package.json
         ports:
-            - '${PRODUCTS_PORT}:${PRODUCTS_PORT}'
+            - 3001
+        depends_on:
+            - postgres
+        restart: always
+    carts:
+        hostname: carts
+        container_name: carts-dev
+        env_file:
+            - ./apps/carts/.dev.env
+        build:
+            context: .
+            dockerfile: ./apps/carts/Dockerfile
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./apps/carts
+                  target: /app/apps/carts
+                  ignore:
+                      - node_modules/
+                - action: rebuild
+                  path: package.json
+        ports:
+            - 3002
+        depends_on:
+            - postgres
+        restart: always
+    users:
+        hostname: users
+        container_name: users-dev
+        env_file:
+            - ./apps/users/.dev.env
+        build:
+            context: .
+            dockerfile: ./apps/users/Dockerfile
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./apps/users
+                  target: /app/apps/users
+                  ignore:
+                      - node_modules/
+                - action: rebuild
+                  path: package.json
+        ports:
+            - 3003
+        depends_on:
+            - postgres
+        restart: always
+    orders:
+        hostname: orders
+        container_name: orders-dev
+        env_file:
+            - ./apps/orders/.dev.env
+        build:
+            context: .
+            dockerfile: ./apps/orders/Dockerfile
+            target: development
+        develop:
+            watch:
+                - action: sync
+                  path: ./apps/orders
+                  target: /app/apps/orders
+                  ignore:
+                      - node_modules/
+                - action: rebuild
+                  path: package.json
+        ports:
+            - 3004
         depends_on:
             - postgres
         restart: always
     postgres:
-        hostname: '${POSTGRES_HOST}'
+        hostname: postgres
         container_name: postgres-dev
         image: postgres:14
-        env_file:
-            - .env.root.dev
         environment:
             - PG_DATA=/var/lib/postgresql/data
+            - POSTGRES_HOST=postgres
+            - POSTGRES_USER=admin
+            - POSTGRES_DB=test
+            - POSTGRES_PASSWORD=12345
         ports:
-            - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+            - 5432
         volumes:
             - pgdata:/var/lib/postgresql/data
         restart: always
