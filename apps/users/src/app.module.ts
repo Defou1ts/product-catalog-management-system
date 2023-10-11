@@ -21,7 +21,9 @@ import type { PostgresConfig } from '@config/config';
 	imports: [
 		GraphQLModule.forRoot<ApolloFederationDriverConfig>({
 			driver: ApolloFederationDriver,
-			typePaths: ['./**/*.graphql'],
+			autoSchemaFile: {
+				federation: 2,
+			},
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,

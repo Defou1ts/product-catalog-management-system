@@ -1,11 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from '../entities/user.entity';
 
 @Injectable()
 export class UsersRepository {
-	constructor(@Inject(User) private readonly userEntity: Repository<User>) {}
+	constructor(@InjectRepository(User) private readonly userEntity: Repository<User>) {}
 
 	async getById(id: number) {
 		return await this.userEntity.findOne({ where: { id }, relations: { role: true, orders: true, cart: true } });

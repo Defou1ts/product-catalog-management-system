@@ -32,7 +32,7 @@ export class User {
 	password: string;
 
 	@Field()
-	@Column()
+	@Column({ nullable: true })
 	hashedRefreshToken: string;
 
 	@Field(() => Date)
