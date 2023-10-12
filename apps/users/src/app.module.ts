@@ -15,6 +15,7 @@ import { Product } from './entities/product.entity';
 import { User } from './entities/user.entity';
 import { Role } from './entities/role.entity';
 import { RolesModule } from './roles/roles.module';
+import { serviceConfigRegister } from './config/service.config';
 
 import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig, RedisConfig } from '@config/config';
@@ -42,7 +43,7 @@ import type { PostgresConfig, RedisConfig } from '@config/config';
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [postgresConfigRegister, redisConfigRegister],
+			load: [postgresConfigRegister, redisConfigRegister, serviceConfigRegister],
 			validate,
 		}),
 		TypeOrmModule.forRootAsync({

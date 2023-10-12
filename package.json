@@ -6,7 +6,7 @@
 	"private": true,
 	"license": "UNLICENSED",
 	"scripts": {
-		"start:dev": "docker-compose --file docker-compose.dev.yml watch --build",
+		"start:dev": "docker-compose --file docker-compose.dev.yml watch",
 		"start:prod": "docker-compose --file docker-compose.prod.yml up --build",
 		"docker:build": "docker-compose --file docker-compose.prod.yml build",
 		"build": "nest build",

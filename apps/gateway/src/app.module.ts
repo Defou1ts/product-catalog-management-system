@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
-import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
 import { ApolloGatewayDriver } from '@nestjs/apollo';
 import { postgresConfigRegister } from '@config/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,6 +18,7 @@ import { Cart } from './entities/cart.entity';
 import { Order } from './entities/order.entity';
 import { Product } from './entities/product.entity';
 import { JwtAuthMiddleware } from './auth/middlewares/jwt-auth.middleware';
+import { getApolloGatewayDriverConfig } from './helpers/getAppoloGatewayDriverConfig';
 
 import type { MiddlewareConsumer, NestModule } from '@nestjs/common';
 import type { PostgresConfig } from '@config/config';
@@ -46,46 +46,10 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 			}),
 			inject: [postgresConfigRegister.KEY],
 		}),
-		GraphQLModule.forRoot<ApolloGatewayDriverConfig>({
+		GraphQLModule.forRootAsync<ApolloGatewayDriverConfig>({
 			driver: ApolloGatewayDriver,
-			server: {
-				context: ({ req }: any) => {
-					return { req };
-				},
-			},
-			gateway: {
-				buildService({ url }) {
-					return new RemoteGraphQLDataSource({
-						url,
-						willSendRequest({ request, context }) {
-							request.http.headers.set(
-								'user',
-								context?.req?.user ? JSON.stringify(context?.req?.user) : null,
-							);
-						},
-					});
-				},
-				supergraphSdl: new IntrospectAndCompose({
-					subgraphs: [
-						{
-							name: 'Products',
-							url: `http://${process.env.PRODUCTS_HOST}:${process.env.PRODUCTS_PORT}/graphql`,
-						},
-						{
-							name: 'Carts',
-							url: `http://${process.env.CARTS_HOST}:${process.env.CARTS_PORT}/graphql`,
-						},
-						{
-							name: 'Users',
-							url: `http://${process.env.USERS_HOST}:${process.env.USERS_PORT}/graphql`,
-						},
-						{
-							name: 'Orders',
-							url: `http://${process.env.ORDERS_HOST}:${process.env.ORDERS_PORT}/graphql`,
-						},
-					],
-				}),
-			},
+			useFactory: getApolloGatewayDriverConfig,
+			inject: [servicesConfigRegister],
 		}),
 		UsersModule,
 		RolesModule,

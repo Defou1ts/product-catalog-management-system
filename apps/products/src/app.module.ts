@@ -10,6 +10,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { validate } from './config/config.validation';
 import { Product } from './entities/product.entity';
 import { ProductsModule } from './products/products.module';
+import { serviceConfigRegister } from './config/service.config';
 
 import type { PostgresConfig, RedisConfig } from '@config/config';
 import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
@@ -37,7 +38,7 @@ import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [postgresConfigRegister, redisConfigRegister],
+			load: [postgresConfigRegister, redisConfigRegister, serviceConfigRegister],
 			validate,
 		}),
 		TypeOrmModule.forRootAsync({
