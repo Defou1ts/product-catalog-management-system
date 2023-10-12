@@ -43,7 +43,7 @@ export const getApolloGatewayDriverConfig = async ({
 				},
 				{
 					name: 'Orders',
-					url: `http://${ordersServiceHost}:${ordersServicePort}}/graphql`,
+					url: `http://${ordersServiceHost}:${ordersServicePort}/graphql`,
 				},
 			],
 		}),

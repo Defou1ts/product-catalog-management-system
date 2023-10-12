@@ -1,4 +1,6 @@
 import { NestFactory } from '@nestjs/core';
+import { getLoggerConfig } from '@config/config/logger.config';
+import { Logtail } from '@logtail/node';
 
 import { AppModule } from './app.module';
 import { appConfigRegister } from './config/app.config';
@@ -6,7 +8,11 @@ import { appConfigRegister } from './config/app.config';
 import type { AppConfig } from './config/app.config';
 
 async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+	const logtail = new Logtail(process.env.LOGTAIL_TOKEN);
+
+	const app = await NestFactory.create(AppModule, {
+		logger: getLoggerConfig(logtail),
+	});
 
 	const { appPort } = app.get<AppConfig>(appConfigRegister.KEY);
 

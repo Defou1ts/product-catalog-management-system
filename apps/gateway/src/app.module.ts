@@ -49,7 +49,7 @@ import type { ApolloGatewayDriverConfig } from '@nestjs/apollo';
 		GraphQLModule.forRootAsync<ApolloGatewayDriverConfig>({
 			driver: ApolloGatewayDriver,
 			useFactory: getApolloGatewayDriverConfig,
-			inject: [servicesConfigRegister],
+			inject: [servicesConfigRegister.KEY],
 		}),
 		UsersModule,
 		RolesModule,
