@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApolloFederationDriver } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
+import { CacheModule } from '@nestjs/cache-manager';
+import * as redisStore from 'cache-manager-redis-store';
 
 import { validate } from './config/config.validation';
 import { UsersModule } from './users/users.module';
@@ -15,10 +17,21 @@ import { Role } from './entities/role.entity';
 import { RolesModule } from './roles/roles.module';
 
 import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
-import type { PostgresConfig } from '@config/config';
+import type { PostgresConfig, RedisConfig } from '@config/config';
 
 @Module({
 	imports: [
+		CacheModule.registerAsync({
+			imports: [ConfigModule],
+			useFactory: ({ host, port }: RedisConfig) => ({
+				ttl: 1000,
+				isGlobal: true,
+				store: redisStore,
+				host,
+				port,
+			}),
+			inject: [redisConfigRegister.KEY],
+		}),
 		GraphQLModule.forRoot<ApolloFederationDriverConfig>({
 			driver: ApolloFederationDriver,
 			autoSchemaFile: {

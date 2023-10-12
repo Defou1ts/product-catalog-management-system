@@ -48,6 +48,7 @@ services:
             - 3001
         depends_on:
             - postgres
+            - redis
         restart: always
     carts:
         hostname: carts
@@ -71,6 +72,7 @@ services:
             - 3002
         depends_on:
             - postgres
+            - redis
         restart: always
     users:
         hostname: users
@@ -94,6 +96,7 @@ services:
             - 3003
         depends_on:
             - postgres
+            - redis
         restart: always
     orders:
         hostname: orders
@@ -117,6 +120,7 @@ services:
             - 3004:3004
         depends_on:
             - postgres
+            - redis
         restart: always
     postgres:
         hostname: postgres
@@ -134,13 +138,13 @@ services:
             - pgdata:/var/lib/postgresql/data
         restart: always
     redis:
-    container_name: redis
-    hostname: redis
-    image: redis
-    ports:
-        - 6379
-    volumes:
-        - redis:/data
+        container_name: redis
+        hostname: redis
+        image: redis
+        ports:
+            - 6379
+        volumes:
+            - redis:/data
 
 volumes:
     pgdata:

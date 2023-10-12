@@ -30,6 +30,7 @@ services:
             - 3001
         depends_on:
             - postgres
+            - redis
         restart: always
     carts:
         hostname: carts
@@ -44,6 +45,7 @@ services:
             - 3002
         depends_on:
             - postgres
+            - redis
         restart: always
     users:
         hostname: users
@@ -58,6 +60,7 @@ services:
             - 3003
         depends_on:
             - postgres
+            - redis
         restart: always
     orders:
         hostname: orders
@@ -72,6 +75,7 @@ services:
             - 3004:3004
         depends_on:
             - postgres
+            - redis
         restart: always
     postgres:
         hostname: postgres
