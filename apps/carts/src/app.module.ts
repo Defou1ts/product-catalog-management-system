@@ -18,6 +18,7 @@ import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 @Module({
 	imports: [
 		CacheModule.registerAsync({
+			isGlobal: true,
 			imports: [ConfigModule],
 			useFactory: ({ host, port }: RedisConfig) => ({
 				ttl: 1000,

@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CacheModule } from '@nestjs/cache-manager';
 
 import { CartsRepository } from './carts.repository';
 import { CartsResolver } from './carts.resolver';
@@ -11,7 +10,7 @@ import { Product } from '../entities/product.entity';
 import { ProductsModule } from '../products/products.module';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([Cart, Product]), ProductsModule, CacheModule.register({})],
+	imports: [TypeOrmModule.forFeature([Cart, Product]), ProductsModule],
 	providers: [CartsResolver, CartsService, CartsRepository],
 })
 export class CartsModule {}
