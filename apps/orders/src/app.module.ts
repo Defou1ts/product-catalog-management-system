@@ -12,6 +12,8 @@ import { Product } from './entities/product.entity';
 import { User } from './entities/user.entity';
 import { Role } from './entities/role.entity';
 import { OrdersModule } from './orders/orders.module';
+import { appConfigRegister } from './config/app.config';
+import { paypalConfigRegister } from './config/paypal.config';
 
 import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 import type { PostgresConfig } from '@config/config';
@@ -26,7 +28,7 @@ import type { PostgresConfig } from '@config/config';
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [postgresConfigRegister],
+			load: [postgresConfigRegister, appConfigRegister, paypalConfigRegister],
 			validate,
 		}),
 		TypeOrmModule.forRootAsync({

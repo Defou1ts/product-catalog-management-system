@@ -1,6 +1,8 @@
 ### .env && .dev.env example:
 
 ```
+APP_HOST=localhost
+
 POSTGRES_HOST=postgres
 POSTGRES_USER=admin
 POSTGRES_DB=test

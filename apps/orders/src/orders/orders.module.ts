@@ -6,9 +6,23 @@ import { OrdersService } from './orders.service';
 import { OrdersResolver } from './orders.resolver';
 
 import { Order } from '../entities/order.entity';
+import { PayPalModule } from '../paypal/paypal.module';
+import { paypalConfigRegister } from '../config/paypal.config';
+
+import type { PaypalConfig } from '../config/paypal.config';
 
 @Module({
-	imports: [TypeOrmModule.forFeature([Order])],
+	imports: [
+		TypeOrmModule.forFeature([Order]),
+		PayPalModule.registerAsync({
+			useFactory: ({ paypalClientId, paypalClientSecret }: PaypalConfig) => ({
+				mode: 'sandbox',
+				clientId: paypalClientId,
+				clientSecret: paypalClientSecret,
+			}),
+			inject: [paypalConfigRegister.KEY],
+		}),
+	],
 	providers: [OrdersRepository, OrdersService, OrdersResolver],
 })
 export class OrdersModule {}
