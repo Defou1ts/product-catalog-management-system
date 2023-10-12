@@ -1,4 +1,4 @@
-import { postgresConfigRegister } from '@config/config';
+import { postgresConfigRegister, redisConfigRegister } from '@config/config';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -22,7 +22,7 @@ import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [postgresConfigRegister],
+			load: [postgresConfigRegister, redisConfigRegister],
 			validate,
 		}),
 		TypeOrmModule.forRootAsync({

@@ -6,6 +6,12 @@ export class RequiredEnvironmentVariables {
 	PRODUCTS_PORT: number;
 
 	@IsString()
+	REDIS_HOST: string;
+
+	@IsNumber()
+	REDIS_PORT: number;
+
+	@IsString()
 	POSTGRES_HOST: string;
 
 	@IsNumber()

@@ -1,4 +1,4 @@
-import { postgresConfigRegister } from '@config/config';
+import { postgresConfigRegister, redisConfigRegister } from '@config/config';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -28,7 +28,7 @@ import type { PostgresConfig } from '@config/config';
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true,
-			load: [postgresConfigRegister, appConfigRegister, paypalConfigRegister],
+			load: [postgresConfigRegister, appConfigRegister, paypalConfigRegister, redisConfigRegister],
 			validate,
 		}),
 		TypeOrmModule.forRootAsync({
