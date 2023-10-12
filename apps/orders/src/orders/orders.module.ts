@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersRepository } from './orders.repository';
 import { OrdersService } from './orders.service';
 import { OrdersResolver } from './orders.resolver';
+import { OrdersController } from './orders.controller';
 
 import { Order } from '../entities/order.entity';
 import { PayPalModule } from '../paypal/paypal.module';
@@ -24,5 +25,6 @@ import type { PaypalConfig } from '../config/paypal.config';
 		}),
 	],
 	providers: [OrdersRepository, OrdersService, OrdersResolver],
+	controllers: [OrdersController],
 })
 export class OrdersModule {}

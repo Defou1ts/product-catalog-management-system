@@ -69,7 +69,7 @@ services:
             dockerfile: ./apps/orders/Dockerfile
             target: production
         ports:
-            - 3004
+            - 3004:3004
         depends_on:
             - postgres
         restart: always

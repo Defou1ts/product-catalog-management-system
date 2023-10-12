@@ -114,7 +114,7 @@ services:
                 - action: rebuild
                   path: package.json
         ports:
-            - 3004
+            - 3004:3004
         depends_on:
             - postgres
         restart: always
