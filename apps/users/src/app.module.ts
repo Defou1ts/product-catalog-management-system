@@ -24,11 +24,12 @@ import type { PostgresConfig, RedisConfig } from '@config/config';
 		CacheModule.registerAsync({
 			imports: [ConfigModule],
 			useFactory: ({ host, port }: RedisConfig) => ({
-				ttl: 1000,
 				isGlobal: true,
+				ttl: 1000,
 				store: redisStore,
 				host,
 				port,
+				name: 'users',
 			}),
 			inject: [redisConfigRegister.KEY],
 		}),

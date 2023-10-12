@@ -25,6 +25,7 @@ import type { ApolloFederationDriverConfig } from '@nestjs/apollo';
 				store: redisStore,
 				host,
 				port,
+				name: 'carts',
 			}),
 			inject: [redisConfigRegister.KEY],
 		}),

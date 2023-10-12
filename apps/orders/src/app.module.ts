@@ -30,6 +30,7 @@ import type { PostgresConfig, RedisConfig } from '@config/config';
 				store: redisStore,
 				host,
 				port,
+				name: 'orders',
 			}),
 			inject: [redisConfigRegister.KEY],
 		}),
