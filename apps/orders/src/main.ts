@@ -4,6 +4,7 @@ import { Logtail } from '@logtail/node';
 
 import { AppModule } from './app.module';
 import { appConfigRegister } from './config/app.config';
+import { ClassValidationPipe } from './pipes/class-validation.pipe';
 
 import type { AppConfig } from './config/app.config';
 
@@ -15,6 +16,8 @@ async function bootstrap() {
 	});
 
 	const { appPort } = app.get<AppConfig>(appConfigRegister.KEY);
+
+	app.useGlobalPipes(new ClassValidationPipe());
 
 	await app.listen(appPort, () => {
 		console.log(`Orders service succesfully started at port ${appPort}`);
