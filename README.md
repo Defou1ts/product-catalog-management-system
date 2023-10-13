@@ -16,11 +16,11 @@ yarn install
 
 ### Configure environment for each app.
 
--   https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/carts/README.md
--   https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/gateway/README.md
--   https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/orders/README.md
--   https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/products/README.md
--   https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/users/README.md
+-   [Carts Service](https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/carts/README.md)
+-   [Gateway](https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/gateway/README.md)
+-   [Orders Service](https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/orders/README.md)
+-   [Products Service](https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/products/README.md)
+-   [Users Service](https://github.com/Defou1ts/product-catalog-management-system/tree/main/apps/users/README.md)
 
 ### Start production or development docker-compose file with folowwing command:
 
